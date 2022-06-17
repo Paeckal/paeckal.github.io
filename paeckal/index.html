@@ -1,0 +1,202 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>AR</title>
+    <script src="1.0.4-aframe.js"></script>
+    <script src="build-aframe-ar.js"></script>
+        <script src="marker-tools-gesture-detector.js"></script>
+        <script src="marker-gesture-handler.js"></script>
+        <script>
+            AFRAME.registerComponent('videohandler', {
+                init: function () {
+                    var marker = this.el;
+                    this.greenscreenvideo = document.querySelector("#greenscreenvideo");
+
+                    marker.addEventListener('markerFound', function () {
+                        this.toggle = true;
+                        this.greenscreenvideo.play();
+                    }.bind(this));
+
+                    marker.addEventListener('markerLost', function () {
+                        this.toggle = false;
+                        this.greenscreenvideo.pause();
+                    }.bind(this));
+                },
+            });
+        </script>
+  <script>
+            AFRAME.registerComponent('videohandler2', {
+                init: function () {
+                    var marker = this.el;
+                    this.greenscreenvideo2 = document.querySelector("#greenscreenvideo2");
+
+                    marker.addEventListener('markerFound', function () {
+                        this.toggle = true;
+                        this.greenscreenvideo2.play();
+                    }.bind(this));
+
+                    marker.addEventListener('markerLost', function () {
+                        this.toggle = false;
+                        this.greenscreenvideo2.pause();
+                    }.bind(this));
+                },
+            });
+        </script>
+    <script>
+            AFRAME.registerComponent('videohandler3', {
+                init: function () {
+                    var marker = this.el;
+                    this.greenscreenvideo3 = document.querySelector("#greenscreenvideo3");
+
+                    marker.addEventListener('markerFound', function () {
+                        this.toggle = true;
+                        this.greenscreenvideo3.play();
+                    }.bind(this));
+
+                    marker.addEventListener('markerLost', function () {
+                        this.toggle = false;
+                        this.greenscreenvideo3.pause();
+                    }.bind(this));
+                },
+            });
+        </script>
+    <script src="aframe-chromakey-material-min.js"></script>
+    
+</head>
+
+
+    
+ <body style="margin: 0; overflow: hidden;">
+        <a-scene
+            vr-mode-ui="enabled: false"
+            loading-screen="enabled: false;"
+            arjs='sourceType: webcam; debugUIEnabled: false;'
+            id="scene"
+            embedded
+            gesture-detector
+        >
+            <a-assets>
+                <video
+                    id="greenscreenvideo"
+                    src="green.mp4"
+                    preload="auto"
+                    response-type="arraybuffer"
+                    loop
+                    crossorigin
+                    webkit-playsinline
+                    autoplay
+                    muted
+                    playsinline
+                    
+                ></video>
+                <video
+                    id="greenscreenvideo2"
+                    src="green2.mp4"
+                    preload="auto"
+                    response-type="arraybuffer"
+                    loop
+                    crossorigin
+                    webkit-playsinline
+                    autoplay
+                    muted
+                    playsinline
+                ></video>
+                <video
+                    id="greenscreenvideo3"
+                    src="green3.mp4"
+                    preload="auto"
+                    response-type="arraybuffer"
+                    loop
+                    crossorigin
+                    webkit-playsinline
+                    autoplay
+                    muted
+                    playsinline
+                ></video>
+                
+            </a-assets>
+            
+            <a-marker
+                type="pattern"
+                preset="custom"
+                url="assets/marker.patt"
+                videohandler
+                smooth="true"
+                smoothCount="10"
+                smoothTolerance="0.01"
+                smoothThreshold="5"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+                id="markerA"
+            >
+                
+                <a-plane 
+                     material="shader: chromakey; src: #greenscreenvideo; color: 0.1 0.9 0.2" 
+                    position="0.5 0 -1.7" 
+                     scale="5.7 5 5"
+                    rotation="-90 0 0"
+                    class="clickable"
+                    gesture-handler
+                ></a-plane>
+                    </a-marker>
+            <a-marker
+                type="pattern"
+                preset="custom"
+                url="assets/marker2.patt"
+                videohandler2
+                smooth="true"
+                smoothCount="10"
+                smoothTolerance="0.01"
+                smoothThreshold="5"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+                id="markerB"
+            >
+                
+                <a-plane 
+                     material="shader: chromakey; src: #greenscreenvideo2; color: 0.1 0.9 0.2" 
+                    position="-1.8 0 0.1" 
+                     scale="3 3 3"
+                    rotation="-90 90 0"
+                    class="clickable"
+                    gesture-handler
+                ></a-plane>
+                    </a-marker>
+            <a-marker
+                type="pattern"
+                preset="custom"
+                url="assets/marker3.patt"
+                videohandler3
+                smooth="true"
+                smoothCount="10"
+                smoothTolerance="0.01"
+                smoothThreshold="5"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+                id="markerC"
+            >
+                
+                <a-plane 
+                     material="shader: chromakey; src: #greenscreenvideo3; color: 0.1 0.9 0.2" 
+                    position="1 0 0.1" 
+                     scale="2 2 2"
+                    rotation="-90 0 0"
+                    class="clickable"
+                    gesture-handler
+                ></a-plane>
+                    </a-marker>
+                
+
+            <a-entity camera></a-entity>
+        </a-scene>
+     
+     
+    </body>   
+</html>
